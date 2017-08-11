@@ -20,7 +20,7 @@ def convert_mth_strings(mth_string):
 
 # pull down the content from the webpage
 html = urllib2.urlopen(url)
-soup = BeautifulSoup(html)
+soup = BeautifulSoup(html, 'lxml')
 
 # find all entries with the required class
 block = soup.find('ul',{'class':'navsublist'})
@@ -30,14 +30,14 @@ for yrPageLink in yrPageLinks:
     yrPageUrl = 'http://www.cumbria.gov.uk' + yrPageLink.a['href']
   
     html2 = urllib2.urlopen(yrPageUrl)
-    soup2 = BeautifulSoup(html2)
+    soup2 = BeautifulSoup(html2, 'lxml')
     subBlock = soup2.find('ul', {'class':'navsublist'})
     mthPageLinks = subBlock.findAll('li')
 
     for mthPageLink in mthPageLinks:
         mthPageUrl = 'http://www.cumbria.gov.uk' + mthPageLink.a['href']
         html3 = urllib2.urlopen(mthPageUrl)
-        soup3 = BeautifulSoup(html3)
+        soup3 = BeautifulSoup(html3, 'lxml')
         tableBlock = soup3.find('tbody')
         title = soup3.find('h1')
         title = title.text
